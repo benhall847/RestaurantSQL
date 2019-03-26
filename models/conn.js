@@ -1,4 +1,8 @@
-const pgp = require('pg-promise')();
+const pgp = require('pg-promise')({
+    query: e => {
+    //   console.log('QUERY: ', e.query);
+    }  
+  });
 const options = {
     host: 'localhost',
     database:'restaurant-app'
