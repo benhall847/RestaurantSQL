@@ -4,6 +4,9 @@ const db = require('./conn');
 
 const Review = require('./reviews');
 
+const bcrypt = require('bcryptjs');
+
+
 
 // classes should start with an Upper-Case letter
 // instances of classes
@@ -48,7 +51,15 @@ class User {
 
         `)
     }
-
+    setPassword(newPassword){
+        const salt = bcrypt.genSaltSync(12);
+        const hash = bcrypt.hashSync(newPassword, salt);
+        this.password = hash;
+    }
+    checkPassword(password){
+        
+        return bcrypt.compareSync(password,this.password)
+    }
     get reviews(){
         return db.any(`select * from reviews where user_id=${this.id}`)
             .then((arrayOfReviews)=>{

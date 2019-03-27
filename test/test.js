@@ -41,6 +41,31 @@ describe('Users model', ()=>{
         
     });
 
+    it('should encrypt the password', async()=>{
+        // get user with id 1
+        const theUser = await User.getById(1);
+        // set their password field to "superSecret"
+        theUser.setPassword("superSecret");
+        // compare their password to "superSecret"
+        expect(theUser.password).not.to.equal('superSecret');
+        // it should be false
+    })
+    it(`should be ble to check for correct passwords`, async()=>{
+        // get a user with id 1
+        const theUser = await User.getById(1);
+        // set their password field to "superSecret"
+        theUser.setPassword("superSecret");
+        // save them to the database
+        await theUser.save();
+        // get them back out of the database
+        const sameUser = await User.getById(1);
+        // ask them if thier password is "superSecret"
+        const isCorrectPassword = sameUser.checkPassword("superSecret");
+        expect(isCorrectPassword).to.be.true;
+        const isNotCorrectPassword = sameUser.checkPassword("tofu");
+        expect(isNotCorrectPassword).to.be.false;
+    })
+
 });
 
 
