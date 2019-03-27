@@ -2,6 +2,8 @@
 
 const db = require('./conn');
 
+const Review = require('./reviews');
+
 
 // classes should start with an Upper-Case letter
 // instances of classes
@@ -33,20 +35,32 @@ class User {
     // no "static" because this is an "instance method"
     // the active instance of this class can use this method.
 
-
     save(){
         // use .result when you might want a report about 
         // how many rows got affected
         return db.result(`
-
         update users set
             first_name='${this.firstName}',
             last_name='${this.lastName}',
             email='${this.email}',
             password='${this.password}'
         where id = ${this.id}
-        
+
         `)
+    }
+
+    get reviews(){
+        return db.any(`select * from reviews where user_id=${this.id}`)
+            .then((arrayOfReviews)=>{
+                return arrayOfReviews.map((reviewData)=>{
+                    return new Review(
+                        reviewData.id,
+                        reviewData.score,
+                        reviewData.textContent,
+                        reviewData.restaurant_id,
+                        reviewData.user_id)
+                })
+            })
     }
 }
 
