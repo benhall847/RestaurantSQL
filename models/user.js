@@ -37,7 +37,21 @@ class User {
     }
     // no "static" because this is an "instance method"
     // the active instance of this class can use this method.
-
+    static getAll(){
+        return db.any(`select * from users`)
+            .then((arrayOfUsers)=>{
+                return arrayOfUsers.map((eaUser)=>{
+                    return new User(
+                        eaUser.id,
+                        eaUser.first_name,
+                        eaUser.last_name,
+                        eaUser.email,
+                        eaUser.password
+                    )
+                })
+            }
+            )
+    }
     save(){
         // use .result when you might want a report about 
         // how many rows got affected

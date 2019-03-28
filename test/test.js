@@ -56,7 +56,8 @@ describe('Users model', ()=>{
         // set their password field to "superSecret"
         theUser.setPassword("superSecret");
         // save them to the database
-        await theUser.save();
+        await theUser.save
+        ();
         // get them back out of the database
         const sameUser = await User.getById(1);
         // ask them if thier password is "superSecret"
