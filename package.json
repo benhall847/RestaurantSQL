@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js",
     "db:create": "createdb restaurant-app",
     "db:init": "psql -f schema.sql restaurant-app && psql -f seed.sql restaurant-app",
     "db:destroy": "dropdb restaurant-app",
@@ -20,8 +19,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "mocha": "^6.0.2",
-    "nodemon": "^1.18.10"
+    "mocha": "^6.0.2"
   },
   "description": ""
 }
