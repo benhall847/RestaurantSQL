@@ -6,7 +6,7 @@ const User = require('./models/user');
 
 const Restaurant = require('./models/restaurants');
 
-const server = http.createServer(async(req,res)=>{
+const server = http.createServer(async(req,res)=>{  
     console.log(req.url);
     res.statusCode = 200;
 
@@ -18,25 +18,56 @@ const server = http.createServer(async(req,res)=>{
     // send all users
 
     // else send a welcome message
-
-    if (req.url === '/restaurants'){
-        response = await Restaurant.getAll();
-        response = JSON.stringify(response);
-
+    const method = req.method;
+    
+    if (req.url.startsWith('/restaurants')){
+        if (method === "GET"){
+            response = await Restaurant.getAll();
+            response = JSON.stringify(response);
+        }else if(method === "POST"){
+            res.end(`{
+                'MESSAGE': "ACCESS DENIED 2319 ONLY ADMINS CREATE THE WORLD"
+            }`)
+        }else if (method === "PUT"){
+            res.end(`{
+                'MESSAGE': "WANNA UPDATE STUFF???"
+            }`)
+        }else if (method === "DELETE"){
+            res.end(`{
+                'MESSAGE': "ERR ACCESS GRANTED, DATABASE DESTROYED."
+            }`)
+        }
+    
     }else if (req.url.startsWith('/users')){
         const reqURL = req.url.split('/');
-
-        if (reqURL.length === 2){
-            response = await User.getAll();
-            response = JSON.stringify(response);
-
-        }else if (reqURL.length === 3){
-            response = await User.getById(reqURL[2])
-            response = JSON.stringify(response);
-        }else{
-            res.statusCode = 404;
-            res.end('ACCESS DENIED')
+        if(method === "GET"){
+            if (reqURL.length === 2){
+                response = await User.getAll();
+                response = JSON.stringify(response);
+    
+            }else if (reqURL.length === 3){
+                response = await User.getById(reqURL[2])
+                response = JSON.stringify(response);
+            }else{
+                res.statusCode = 404;
+                res.end(`{
+                    "MESSAGE": "ACCESS DENIED"
+                }`)
+            }
+        }else if(method === "POST"){
+            res.end(`{
+                "MESSAGE": "ACCESS DENIED 2319 ONLY ADMINS CREATE THE WORLD"
+            }`)
+        }else if (method === "PUT"){
+            res.end(`{
+                "MESSAGE": "WANNA UPDATE STUFF???"
+            }`)
+        }else if (method === "DELETE"){
+            res.end(`{
+                "MESSAGE": "ERR ACCESS GRANTED, DATABASE DESTROYED."
+            }`)
         }
+
 
     }else{
         response = `{
