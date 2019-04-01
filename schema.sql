@@ -32,6 +32,7 @@ create table favorites (
 );
 
 
+
 -- user profile
 
 --user's id

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "dev":"nodemon app.js",
+    "dev": "nodemon app.js",
     "db:create": "createdb restaurant-app",
     "db:init": "psql -f schema.sql restaurant-app && psql -f seed.sql restaurant-app",
     "db:destroy": "dropdb restaurant-app",
@@ -15,6 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10",
     "pg-promise": "^8.6.4"
   },
   "devDependencies": {

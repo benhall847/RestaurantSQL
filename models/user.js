@@ -52,6 +52,24 @@ class User {
             }
             )
     }
+
+    static delete(id){
+        return db.result('delete from users where id=$1', [id]);
+    }
+
+    static add(userData){
+        return db.one(`
+        insert into users
+        (first_name, last_name, email, password)
+        values
+        ($1, $2, $3, $4)
+        returning id, first_name
+        `), [userData.first_name, userData.last_name, userData.email, userData.password]
+        .then((data)=>{
+            console.log("yuups")
+            return data.id
+        });
+    }
     save(){
         // use .result when you might want a report about 
         // how many rows got affected
