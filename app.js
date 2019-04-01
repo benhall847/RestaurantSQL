@@ -9,19 +9,24 @@ const Restaurant = require('./models/restaurants');
 
 app.use(express.urlencoded({extended:true}));
 
-
-app.get('/restaurants', async (req,res) =>{
+async function GetRestaurants (req,res){
     res.json(await Restaurant.getAll())
-})
+}
 
-app.get('/users', async (req, res)=>{
+async function getUsers (req,res){
     res.json(await User.getAll())
-})
+}
 
-app.get('/users/:id', async (req, res)=>{
-    const theUser = await User.getById(req.params.id)
-    res.json(theUser);
-})
+async function getUserById(req,res){
+    res.json(await User.getById(req.params.id));
+}
+
+
+app.get('/restaurants', GetRestaurants)
+
+app.get('/users', getUsers)
+
+app.get('/users/:id', getUserById)
 
 app.post('/users', async (req, res) => {
     const {first_name, last_name, email, password} = req.body;
