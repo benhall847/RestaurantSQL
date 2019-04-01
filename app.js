@@ -1,8 +1,8 @@
 const port = 1337;
 const express = require('express');
 const app = express();
-const methods = require('./handlers');
-const {getRestaurants, getUsers, getUserById, createUser, updateUser, deleteUser} = methods;
+const handlers = require('./handlers');
+const {getRestaurants, getUsers, getUserById, createUser, updateUser, deleteUser} = handlers;
 
 app.use(express.urlencoded({extended:true}));
 
