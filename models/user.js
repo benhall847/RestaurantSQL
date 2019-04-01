@@ -57,14 +57,14 @@ class User {
         return db.result('delete from users where id=$1', [id]);
     }
 
-    static add(userData){
+    static add(first_name, last_name, email, password){
         return db.one(`
         insert into users
         (first_name, last_name, email, password)
         values
         ($1, $2, $3, $4)
         returning id, first_name
-        `), [userData.first_name, userData.last_name, userData.email, userData.password]
+        `, [first_name, last_name, email, password])
         .then((data)=>{
             console.log("yuups")
             return data.id
