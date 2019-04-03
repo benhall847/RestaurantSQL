@@ -57,6 +57,19 @@ class User {
         return db.result('delete from users where id=$1', [id]);
     }
 
+    static getByEmail(email){
+        return db.one('select * from users where email=$1',email)
+            .then((userData)=>{
+                return new User(
+                    userData.id,
+                    userData.first_name,
+                    userData.last_name,
+                    userData.email,
+                    userData.password
+                )
+            })
+    }
+
     static add(first_name, last_name, email, password){
         return db.one(`
         insert into users
