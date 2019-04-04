@@ -13,9 +13,9 @@ const User = require('./models/user');
 
 app.use(express.urlencoded({extended:true}));
 app.engine('html',es6Renderer);
+app.set('views', 'views');
 app.set('view engine', 'html');
 
-app.set('views', 'views');
 // set the "views" to the "views" folder
 
 app.use(session({
