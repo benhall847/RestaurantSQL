@@ -52,17 +52,17 @@ app.post('/login', async (req,res)=>{
                 email: req.body.email,
                 message: "ACCESS DENIED"
             }
-        })
-    }
+        });
+    };
 
 
 
-})
+});
 
 app.get('/dashboard', (req,res)=>{
     console.log(`the user is ${req.session.user}`)
     res.send("WELCOME TO YO PAGE!")
-})
+});
 
 
 

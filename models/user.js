@@ -91,8 +91,8 @@ class User {
             first_name='${this.firstName}',
             last_name='${this.lastName}',
             email='${this.email}',
-            password='${this.password}'
-        where id = ${this.id}
+            password='${this.password}',
+            where id = ${this.id}
 
         `)
     }
